@@ -1,0 +1,205 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  background-color: rgb(24, 24, 24);
+  color: rgba(235, 235, 235, 0.64);
+  line-height: 1.6;
+  font-size: 15px;
+  font-family:
+    'Segoe UI',
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica Neue',
+    sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+h1 {
+  font-size: 3.5em;
+}
+
+h2 {
+  font-size: 2.7em;
+}
+
+h3 {
+  font-size: 2em;
+}
+
+p {
+  font-size: 1.25em;
+}
+
+button {
+  font-size: 1.25em;
+  font-weight: bold;
+  padding: 10px 30px;
+  border-radius: 5px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  color: white;
+  background-color: rgb(61, 176, 88);
+}
+
+button:hover {
+  background-color: rgb(103, 206, 127);
+}
+
+.container {
+  max-width: 1400px;
+  margin: auto;
+}
+
+.color-acento {
+  color: rgb(61, 176, 88);
+}
+
+video {
+  margin-top: 100px;
+}
+
+header {
+  background-color: rgb(20, 20, 20);
+  position: fixed;
+  width: 100%;
+}
+
+header .container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+header nav {
+  display: flex;
+  text-align: center;
+  flex-direction: row;
+  padding-right: 20px;
+}
+
+header a {
+  padding: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+}
+
+header a:hover {
+  color: rgb(61, 176, 88);
+}
+
+#inicio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  height: 90vh;
+  background-image: linear-gradient(0deg,
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)), url("src/media/luffyvsgoku.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+#inicio h1 {
+  color: white;
+}
+
+#inicio button {
+  font-size: 1.75em;
+}
+
+#historia h2 {
+  margin-bottom: 10px;
+}
+
+#historia .container {
+  text-align: center;
+  padding: 50px 12px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#historia .cont {
+  text-align: center;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#historia .texto {
+  width: 50%;
+  max-width: 600px;
+  text-align: initial;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#tutorial {
+  color: white;
+  text-align: center;
+}
+
+#tutorial .container {
+  padding: 150px 12px;
+}
+
+
+#tutorial .carta {
+  width: 33%;
+  margin: 30px;
+  border-radius: 10px;
+  padding: 50px;
+}
+
+#tutorial .informacion {
+  display: flex;
+  justify-content: center;
+}
+
+
+#final {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
+  height: 80vh;
+}
+
+#final h2 {
+  font-size: 5em;
+  margin-bottom: 50px;
+}
+
+#final button {
+  font-size: 2em;
+}
+
+footer {
+  background-color: rgb(20, 20, 20);
+}
+
+footer p {
+  margin: 0;
+  padding: 12px;
+  color: rgb(100, 100, 100);
+}
+
+footer .container {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
