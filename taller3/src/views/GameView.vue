@@ -1,7 +1,10 @@
 <template>
-    <div class="navbar"><Stats :player1Health="player1Health" :player1MaxHealth="player1MaxHealth" :player2Health="player2Health" :player2MaxHealth="player2MaxHealth" /></div>
+    <div class="navbar">
+        <Stats :player1Health="player1Health" :player1MaxHealth="player1MaxHealth" 
+               :player2Health="player2Health" :player2MaxHealth="player2MaxHealth" />
+    </div>
     <div class="estadio">
-        <Stadium />
+        <Stadium @health-updated="updateHealth" />
     </div>
 </template>
 
@@ -15,10 +18,17 @@ export default {
     },
     data() {
         return {
-            player1Health: 50,
-            player1MaxHealth: 100, 
+            player1Health: 100,
+            player1MaxHealth: 100,
             player2Health: 100,
-            player2MaxHealth: 100, 
+            player2MaxHealth: 100,
+        }
+    },
+    methods: {
+        updateHealth(data) {
+            console.log("Received health update:", data);
+            this.player1Health = data.player1Health;
+            this.player2Health = data.player2Health;
         }
     }
 }

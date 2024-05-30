@@ -9,16 +9,13 @@ export default {
     data() {
         return {
             name: 'Player',
-            maxHealth: Math.floor(Math.random() * 30 + 10),
+            maxHealth: Math.floor(Math.random() * 30 + 100),
             health: 0,
-            damage: Math.floor(Math.random() * 10 + 1),
-            actionPoints: 50, // Barra de acción inicializada a 50
-            actionInterval: null // Intervalo para recargar la barra de acción
+            damage: Math.floor(Math.random() * 10 + 1)
         }
     },
     mounted() {
         this.health = this.maxHealth;
-        this.startActionRecharge();
     },
     beforeDestroy() {
         clearInterval(this.actionInterval);
@@ -44,6 +41,7 @@ export default {
         attack_manual(danyo, number) {
             this.health -= this.calcularEvento(danyo);
             if (this.health <= 0) {
+                this.health = 0;
                 setTimeout(function () {
                     window.alert("Perdiste Jugador "+number);
                 }, 1000);
@@ -53,19 +51,6 @@ export default {
         getDanyo() {
             this.$emit('send-data', this.damage);
         },
-
-        startActionRecharge() {
-            this.actionInterval = setInterval(() => {
-                if (this.actionPoints < 50) {
-                    this.actionPoints += 1; // Incrementa la barra de acción cada segundo
-                }
-            }, 1000);
-        },
-
-        useActionPoints(points) {
-            this.actionPoints -= points;
-            if (this.actionPoints < 0) this.actionPoints = 0;
-        }
     }
 }
 </script>

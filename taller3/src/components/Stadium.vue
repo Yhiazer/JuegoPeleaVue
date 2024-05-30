@@ -21,13 +21,12 @@ export default {
             posY: 0,
             posX2: 0,
             posY2: 0,
-            velocidad: 5,
+            velocidad: 10,
             teclasPresionadas: {},
             contenedorAncho: 0,
             contenedorAlto: 0,
             danyoPers1: 0,
             danyoPers2: 0,
-            actionCost: 10 // Costo de acción para el método "tepiarse"
         };
     },
     mounted() {
@@ -72,7 +71,6 @@ export default {
             if (this.teclasPresionadas['c']) {
                 if (!this.moviendoseP1 && this.$refs.play1.actionPoints >= this.actionCost) {
                     this.tepiarseP1();
-                    this.$refs.play1.useActionPoints(this.actionCost);
                 }
             }
             if (this.teclasPresionadas['ArrowUp'] && this.posY2 > 0) {
@@ -90,7 +88,6 @@ export default {
             if (this.teclasPresionadas['0']) {
                 if (!this.moviendoseP2 && this.$refs.play2.actionPoints >= this.actionCost) {
                     this.tepiarseP2();
-                    this.$refs.play2.useActionPoints(this.actionCost);
                 }
             }
         },
@@ -108,6 +105,10 @@ export default {
                 this.$refs.play1.attack_manual(this.danyoPers2, '1');
                 this.$refs.play2.attack_manual(this.danyoPers1, '2');
                 this.reposicionar();
+                const player1Health = this.$refs.play1.health;
+                const player2Health = this.$refs.play2.health;
+                console.log("Health updated:", { player1Health, player2Health });
+                this.$emit('health-updated', { player1Health, player2Health });
             }
         },
         reposicionar() {
