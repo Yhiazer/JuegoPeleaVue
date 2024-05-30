@@ -27,8 +27,7 @@ export default {
             contenedorAlto: 0,
             danyoPers1: 0,
             danyoPers2: 0,
-            temporizador: 3, // Agrega el temporizador aquí
-            intervaloTemporizador: null // Para guardar el ID del intervalo del temporizador
+            actionCost: 10 // Costo de acción para el método "tepiarse"
         };
     },
     mounted() {
@@ -44,17 +43,11 @@ export default {
             this.moverObjeto();
             this.verificarPosicion();
         }, 10);
-
-        // Iniciar el temporizador cuando el componente se monta
-        this.iniciarTemporizador();
     },
     beforeDestroy() {
         window.removeEventListener('keydown', this.manejarTeclaPresionada);
         window.removeEventListener('keyup', this.manejarTeclaLiberada);
         clearInterval(this.intervalo);
-
-        // Detener el temporizador cuando el componente se destruye
-        this.detenerTemporizador();
     },
     methods: {
         manejarTeclaPresionada(event) {
@@ -77,8 +70,9 @@ export default {
                 this.posX += this.velocidad;
             }
             if (this.teclasPresionadas['c']) {
-                if (!this.moviendoseP1) {
+                if (!this.moviendoseP1 && this.$refs.play1.actionPoints >= this.actionCost) {
                     this.tepiarseP1();
+                    this.$refs.play1.useActionPoints(this.actionCost);
                 }
             }
             if (this.teclasPresionadas['ArrowUp'] && this.posY2 > 0) {
@@ -94,8 +88,9 @@ export default {
                 this.posX2 += this.velocidad;
             }
             if (this.teclasPresionadas['0']) {
-                if (!this.moviendoseP2) {
+                if (!this.moviendoseP2 && this.$refs.play2.actionPoints >= this.actionCost) {
                     this.tepiarseP2();
+                    this.$refs.play2.useActionPoints(this.actionCost);
                 }
             }
         },
@@ -127,7 +122,7 @@ export default {
             this.moviendoseP1 = true;
             setTimeout(() => {
                 this.moviendoseP1 = false;
-            }, 3000);
+            }, 2000);
         },
         tepiarseP2() {
             this.posX2 = Math.floor(Math.random() * (this.contenedorAncho - 100));
@@ -135,7 +130,7 @@ export default {
             this.moviendoseP2 = true;
             setTimeout(() => {
                 this.moviendoseP2 = false;
-            }, 3000);
+            }, 2000);
         },
         actualizarDimensionesContenedor() {
             this.contenedorAncho = this.$refs.stadium.clientWidth;
@@ -148,15 +143,14 @@ export default {
             this.danyoPers2 = data;
         }
     },
-
 }
 </script>
 
 <style>
 .estadio-container {
     position: relative;
-    width: 100%;
-    height: 90vh;
+    width: 1300px;
+    height: 650px;
     /* Altura fija de 90vh */
     background-image: url("../media/estadio.jpg");
     background-size: cover;

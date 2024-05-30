@@ -13,6 +13,9 @@ export default {
   <body>
     <header>
       <div class="container">
+        <router-link to="/login">
+          <img src="@/media/logo.png" width="100px" alt="logo.png" style="cursor: pointer;">
+        </router-link>
         <nav>
           <a href="#historia">Historia</a>
           <a href="#tutorial">Tutorial</a>
