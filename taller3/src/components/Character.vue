@@ -1,6 +1,11 @@
 <template>
     <div style="width: 75px; height: 75px; position: absolute;">
-        <img src="../media/Personajes/zoro.gif" width="75px" alt="">
+        <div v-if="health > 0.5">
+            <img src="../media/Personajes/Zoro/model.gif" width="75px" alt="model.gif">
+        </div>
+        <div v-else>
+            <img src="../media/Misc/explosion.gif" width="75px" alt="explosion.gif">
+        </div>
     </div>
 </template>
 
@@ -9,7 +14,7 @@ export default {
     data() {
         return {
             name: 'Player',
-            maxHealth: Math.floor(Math.random() * 30 + 100),
+            maxHealth: 100, /*Math.floor(Math.random() * 30 + 100)*/
             health: 0,
             damage: Math.floor(Math.random() * 10 + 1)
         }
@@ -43,8 +48,8 @@ export default {
             if (this.health <= 0) {
                 this.health = 0;
                 setTimeout(function () {
-                    window.alert("Perdiste Jugador "+number);
-                }, 1000);
+                    window.alert("Perdiste Jugador " + number);
+                }, 1500);
             }
         },
 

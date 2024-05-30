@@ -69,7 +69,7 @@ export default {
                 this.posX += this.velocidad;
             }
             if (this.teclasPresionadas['c']) {
-                if (!this.moviendoseP1 && this.$refs.play1.actionPoints >= this.actionCost) {
+                if (!this.moviendoseP1) {
                     this.tepiarseP1();
                 }
             }
@@ -86,7 +86,7 @@ export default {
                 this.posX2 += this.velocidad;
             }
             if (this.teclasPresionadas['0']) {
-                if (!this.moviendoseP2 && this.$refs.play2.actionPoints >= this.actionCost) {
+                if (!this.moviendoseP2) {
                     this.tepiarseP2();
                 }
             }
@@ -123,7 +123,7 @@ export default {
             this.moviendoseP1 = true;
             setTimeout(() => {
                 this.moviendoseP1 = false;
-            }, 2000);
+            }, 200);
         },
         tepiarseP2() {
             this.posX2 = Math.floor(Math.random() * (this.contenedorAncho - 100));
@@ -131,7 +131,7 @@ export default {
             this.moviendoseP2 = true;
             setTimeout(() => {
                 this.moviendoseP2 = false;
-            }, 2000);
+            }, 200);
         },
         actualizarDimensionesContenedor() {
             this.contenedorAncho = this.$refs.stadium.clientWidth;

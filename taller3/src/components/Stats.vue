@@ -3,29 +3,33 @@
         <div class="container">
             <div class="player-container">
                 <div>
-                    <img src="@/media/Personajes/Zoro/idle-face.jpg" width="100px" alt="zoro.png">
-                    <p>Player 1</p>
+                    <div v-if="player1Health > 0.5">
+                        <img src="@/media/Personajes/Zoro/idle-face.jpg" width="100px" alt="zoro-idle.png">
+                    </div>
+                    <div v-else>
+                        <img src="@/media/Personajes/Zoro/dead-face.png" width="100px" alt="zoro-dead.png">
+                    </div>
                 </div>
                 <div class="barras">
-                    <div class="barra-hp" >
+                    <p>Player 1 : Name</p>
+                    <div class="barra-hp">
                         <div class="relleno-hp" :style="{ width: player1HealthPercentage }"></div>
-                    </div>
-                    <div class="barra-accion">
-                        <div class="relleno-accion" style="width: 81px;"></div>
                     </div>
                 </div>
             </div>
             <div class="player-container">
                 <div>
-                    <img src="@/media/Personajes/Zoro/idle-face.jpg" width="100px" alt="zoro.png">
-                    <p>Player 2</p>
+                    <div v-if="player2Health > 0.5">
+                        <img src="@/media/Personajes/Zoro/idle-face.jpg" width="100px" alt="zoro-idle.png">
+                    </div>
+                    <div v-else>
+                        <img src="@/media/Personajes/Zoro/dead-face.png" width="100px" alt="zoro-dead.png">
+                    </div>
                 </div>
                 <div class="barras">
+                    <p>Player 2 : Name</p>
                     <div class="barra-hp">
                         <div class="relleno-hp" :style="{ width: player2HealthPercentage }"></div>
-                    </div>
-                    <div class="barra-accion">
-                        <div class="relleno-accion" style="width: 81px;"></div>
                     </div>
                 </div>
             </div>
@@ -35,32 +39,32 @@
 
 <script>
 export default {
-  props: {
-    player1Health: {
-      type: Number,
-      required: true
+    props: {
+        player1Health: {
+            type: Number,
+            required: true
+        },
+        player1MaxHealth: {
+            type: Number,
+            required: true
+        },
+        player2Health: {
+            type: Number,
+            required: true
+        },
+        player2MaxHealth: {
+            type: Number,
+            required: true
+        }
     },
-    player1MaxHealth: {
-      type: Number,
-      required: true
-    },
-    player2Health: {
-      type: Number,
-      required: true
-    },
-    player2MaxHealth: {
-      type: Number,
-      required: true
+    computed: {
+        player1HealthPercentage() {
+            return `${(this.player1Health / this.player1MaxHealth) * 100}%`;
+        },
+        player2HealthPercentage() {
+            return `${(this.player2Health / this.player2MaxHealth) * 100}%`;
+        }
     }
-  },
-  computed: {
-    player1HealthPercentage() {
-      return `${(this.player1Health / this.player1MaxHealth) * 100}%`;
-    },
-    player2HealthPercentage() {
-      return `${(this.player2Health / this.player2MaxHealth) * 100}%`;
-    }
-  }
 };
 </script>
 
@@ -78,12 +82,13 @@ export default {
     justify-content: space-between;
 }
 
-.player-header .barras{
+.player-header .barras {
     padding-left: 10px;
 }
 
 .player-header .player-container {
     padding: 5px;
+    border-radius: 5%;
     background-color: gray;
     display: flex;
     align-items: center;
@@ -109,17 +114,5 @@ export default {
     height: 100%;
     background-color: green;
     transition: width 0.3s ease-in-out;
-}
-
-.barra-accion {
-    width: 100%;
-    height: 10px;
-    background-color: blue;
-    margin-top: 5px;
-}
-
-.relleno-accion {
-    height: 100%;
-    background-color: lightblue;
 }
 </style>
