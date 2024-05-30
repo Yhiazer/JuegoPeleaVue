@@ -2,6 +2,7 @@
     <div style="width: 75px; height: 75px; position: absolute;">
         <div v-if="health > 0.5">
             <img src="../media/Personajes/Zoro/model.gif" width="75px" alt="model.gif">
+            <p style="text-align: center; color: red;">P1</p>
         </div>
         <div v-else>
             <img src="../media/Misc/explosion.gif" width="75px" alt="explosion.gif">
@@ -16,7 +17,7 @@ export default {
             name: 'Player',
             maxHealth: 100, /*Math.floor(Math.random() * 30 + 100)*/
             health: 0,
-            damage: Math.floor(Math.random() * 10 + 1)
+            damage: Math.floor(Math.random() * 10 + 1),
         }
     },
     mounted() {

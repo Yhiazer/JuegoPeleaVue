@@ -70,7 +70,8 @@ export default {
 
 <style>
 .player-header {
-    background-color: transparent;
+    padding: 10px;
+    background-color: rgb(63, 63, 63);
     position: fixed;
     width: 100%;
 }
