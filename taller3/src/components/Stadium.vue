@@ -6,6 +6,10 @@
             <source src="../media/Music/Pelea.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
+        <audio ref="tepAudio" volume="0.1">
+            <source src="../media/Music/Tepiarse.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
     </div>
 </template>
 
@@ -90,7 +94,7 @@ export default {
         pauseBackgroundMusic() {
             this.$refs.backgroundMusic.pause();
         },
-        setMusicVolume(){
+        setMusicVolume() {
             this.$refs.backgroundMusic.volume = volume;
         },
         manejarTeclaPresionada(event) {
@@ -136,7 +140,7 @@ export default {
             }
             if (this.teclasPresionadas['j']) {
                 this.musicVolume *= 0.5;
-                if(this.musicVolume < 0){
+                if (this.musicVolume < 0) {
                     this.musicVolume = 0;
                 }
                 this.setMusicVolume(this.musicVolume);
@@ -170,6 +174,7 @@ export default {
             this.posY2 = Math.floor(Math.random() * (this.contenedorAlto - 100));
         },
         tepiarseP1() {
+            this.reproducirAudioTepiarse();
             this.posX = Math.floor(Math.random() * (this.contenedorAncho - 100));
             this.posY = Math.floor(Math.random() * (this.contenedorAlto - 100));
             this.moviendoseP1 = true;
@@ -178,12 +183,16 @@ export default {
             }, 200);
         },
         tepiarseP2() {
+            this.reproducirAudioTepiarse();
             this.posX2 = Math.floor(Math.random() * (this.contenedorAncho - 100));
             this.posY2 = Math.floor(Math.random() * (this.contenedorAlto - 100));
             this.moviendoseP2 = true;
             setTimeout(() => {
                 this.moviendoseP2 = false;
             }, 200);
+        },
+        reproducirAudioTepiarse() {
+            this.$refs.tepAudio.play();
         },
         actualizarDimensionesContenedor() {
             this.contenedorAncho = this.$refs.stadium.clientWidth;
