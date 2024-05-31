@@ -4,7 +4,9 @@
                :player2Health="player2Health" :player2MaxHealth="player2MaxHealth" />
     </div>
     <div class="estadio">
+    
         <Stadium @health-updated="updateHealth" />
+
     </div>
 </template>
 
@@ -13,6 +15,16 @@ import Stadium from '@/components/Stadium.vue'
 import Stats from '@/components/Stats.vue'
 export default {
     components: {
+        Stadium
+    },
+    props: {
+        selectedImages: {
+            type: Array,
+            required: true
+        }
+    },
+    mounted() {
+        console.log('selectedImages:', this.selectedImages);
         Stadium,
         Stats
     },
@@ -33,6 +45,7 @@ export default {
     }
 }
 </script>
+
 
 <style>
 .navbar{
