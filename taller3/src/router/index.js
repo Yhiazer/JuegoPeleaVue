@@ -41,8 +41,9 @@ const router = createRouter({
     {
       path: '/gameover',
       name: 'gameover',
-      component: GameOver
-    }
+      component: GameOver,
+      props: route => ({ winner: route.params.winner, combatTime: route.params.combatTime })
+    },
   ]
 });
 

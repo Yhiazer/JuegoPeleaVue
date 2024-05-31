@@ -33,34 +33,49 @@ export default {
             contenedorAlto: 0,
             danyoPers1: 0,
             danyoPers2: 0,
+            time: 0,
+            timerInterval: null
         };
     },
     mounted() {
-        this.objeto = document.getElementById('player1');
-        this.objeto2 = document.getElementById('player2');
-        this.actualizarDimensionesContenedor();
+        this.$nextTick(() => {
+            this.objeto = this.$refs.play1.$el;
+            this.objeto2 = this.$refs.play2.$el;
+            this.actualizarDimensionesContenedor();
 
-        window.addEventListener('keydown', this.manejarTeclaPresionada);
-        window.addEventListener('keyup', this.manejarTeclaLiberada);
+            window.addEventListener('keydown', this.manejarTeclaPresionada);
+            window.addEventListener('keyup', this.manejarTeclaLiberada);
 
-        this.movimientoInterval = setInterval(() => {
-            this.manejarMovimiento();
-            this.moverObjeto();
-            this.verificarPosicion();
-        }, 10);
+            this.movimientoInterval = setInterval(() => {
+                this.manejarMovimiento();
+                this.moverObjeto();
+                this.verificarPosicion();
+            }, 10);
 
-        this.danyoInterval = setInterval(() => {
-            this.danyoPers1 = this.subirDanyo(this.danyoPers1);
-            this.danyoPers2 = this.subirDanyo(this.danyoPers2);
-        }, 5000);
+            this.danyoInterval = setInterval(() => {
+                this.danyoPers1 = this.subirDanyo(this.danyoPers1);
+                this.danyoPers2 = this.subirDanyo(this.danyoPers2);
+            }, 5000);
+
+            this.startTimer();
+        });
     },
     beforeDestroy() {
         window.removeEventListener('keydown', this.manejarTeclaPresionada);
         window.removeEventListener('keyup', this.manejarTeclaLiberada);
         clearInterval(this.movimientoInterval);
         clearInterval(this.danyoInterval);
+        this.stopTimer();
     },
     methods: {
+        startTimer() {
+            this.timerInterval = setInterval(() => {
+                this.time++;
+            }, 1000);
+        },
+        stopTimer() {
+            clearInterval(this.timerInterval);
+        },
         manejarTeclaPresionada(event) {
             this.teclasPresionadas[event.key] = true;
         },
@@ -117,6 +132,7 @@ export default {
                 this.$refs.play1.attack_manual(this.danyoPers2, '1');
                 this.$refs.play2.attack_manual(this.danyoPers1, '2');
                 this.reposicionar();
+                this.checkGameOver();
                 const player1Health = this.$refs.play1.health;
                 const player2Health = this.$refs.play2.health;
                 console.log("Health updated:", { player1Health, player2Health });
@@ -160,8 +176,24 @@ export default {
         },
         danyo2(data) {
             this.danyoPers2 = data;
+        },
+        checkGameOver() {
+            const player1Health = this.$refs.play1.health;
+            const player2Health = this.$refs.play2.health;
+            if (player1Health <= 0 || player2Health <= 0) {
+                this.stopTimer();
+                const winner = player1Health <= 0 ? 'Jugador 2' : 'Jugador 1';
+                const combatTime = this.time;
+
+                setTimeout(() => {
+                    this.$router.push({ 
+                        name: 'gameover', 
+                        query: { winner, combatTime } 
+                    });
+                }, 3000);
+            }
         }
-    },
+    }
 }
 </script>
 
