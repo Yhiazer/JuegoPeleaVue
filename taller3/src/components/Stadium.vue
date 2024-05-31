@@ -2,6 +2,10 @@
     <div class="estadio-container" ref="stadium">
         <Character1 :imageUrl="images[0]" id="player1" ref="play1" @send-data="danyo1" />
         <Character2 :imageUrl="images[1]" id="player2" ref="play2" @send-data="danyo2" />
+        <audio ref="backgroundMusic" loop :volume="musicVolume">
+            <source src="../media/Music/Pelea.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
     </div>
 </template>
 
@@ -34,13 +38,16 @@ export default {
             danyoPers1: 0,
             danyoPers2: 0,
             time: 0,
-            timerInterval: null
+            timerInterval: null,
+            musicVolume: 0.5
         };
     },
     mounted() {
         this.$nextTick(() => {
             this.objeto = this.$refs.play1.$el;
             this.objeto2 = this.$refs.play2.$el;
+            this.playBackgroundMusic();
+            window.addEventListener('keydown', this.manejarTeclaPresionada);
             this.actualizarDimensionesContenedor();
 
             window.addEventListener('keydown', this.manejarTeclaPresionada);
@@ -63,6 +70,7 @@ export default {
     beforeDestroy() {
         window.removeEventListener('keydown', this.manejarTeclaPresionada);
         window.removeEventListener('keyup', this.manejarTeclaLiberada);
+        this.pauseBackgroundMusic();
         clearInterval(this.movimientoInterval);
         clearInterval(this.danyoInterval);
         this.stopTimer();
@@ -75,6 +83,15 @@ export default {
         },
         stopTimer() {
             clearInterval(this.timerInterval);
+        },
+        playBackgroundMusic() {
+            this.$refs.backgroundMusic.play();
+        },
+        pauseBackgroundMusic() {
+            this.$refs.backgroundMusic.pause();
+        },
+        setMusicVolume(){
+            this.$refs.backgroundMusic.volume = volume;
         },
         manejarTeclaPresionada(event) {
             this.teclasPresionadas[event.key] = true;
@@ -116,6 +133,13 @@ export default {
                 if (!this.moviendoseP2) {
                     this.tepiarseP2();
                 }
+            }
+            if (this.teclasPresionadas['j']) {
+                this.musicVolume *= 0.5;
+                if(this.musicVolume < 0){
+                    this.musicVolume = 0;
+                }
+                this.setMusicVolume(this.musicVolume);
             }
         },
         moverObjeto() {
@@ -186,9 +210,9 @@ export default {
                 const combatTime = this.time;
 
                 setTimeout(() => {
-                    this.$router.push({ 
-                        name: 'gameover', 
-                        query: { winner, combatTime } 
+                    this.$router.push({
+                        name: 'gameover',
+                        query: { winner, combatTime }
                     });
                 }, 3000);
             }
