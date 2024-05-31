@@ -4,7 +4,7 @@
 
     <div class="carousel-container">
       <!-- Primer carrusel para las primeras 3 imágenes -->
-      <carousel :autoplay="0" class="carousel">
+      <carousel :autoplay="0" class="carousel" v-model="currentSlide1">
         <slide v-for="(image, index) in firstCarouselImages" :key="image.id">
           <img :src="image.url" alt="Carousel Image" :height="200">
         </slide>
@@ -16,7 +16,7 @@
       </carousel>
 
       <!-- Segundo carrusel para las imágenes restantes -->
-      <carousel :autoplay="0" class="carousel">
+      <carousel :autoplay="0" class="carousel" v-model="currentSlide2">
         <slide v-for="(image, index) in secondCarouselImages" :key="image.id">
           <img :src="image.url" alt="Carousel Image" :height="200">
         </slide>
@@ -52,21 +52,30 @@ export default {
   },
   data() {
     return {
+      currentSlide1: 0,
+      currentSlide2: 0,
       images: [
-        { id: 1, url: 'src/media/Personajes/caballero.jpg' },
-        { id: 2, url: 'src/media/Personajes/apartense.png' },
-        { id: 3, url: 'src/media/Personajes/luffy.gif' },
-        { id: 4, url: 'src/media/Personajes/slime.jpg' },
-        { id: 5, url: 'src/media/Personajes/zoro.gif' },
-        { id: 6, url: 'src/media/Personajes/terreneitor.jpg' }
+        { id: 1, url: 'src/media/Personajes/Caballero/model.jpg' },
+        { id: 2, url: 'src/media/Personajes/Max/model.png' },
+        { id: 3, url: 'src/media/Personajes/Luffy/model.gif' },
+        { id: 4, url: 'src/media/Personajes/Slime/model.jpg' },
+        { id: 5, url: 'src/media/Personajes/Zoro/model.gif' },
+        { id: 6, url: 'src/media/Personajes/Terreneitor/model.jpg' }
       ],
       // Variables para almacenar los índices seleccionados de los carruseles
       firstCarouselIndex: 0,
       secondCarouselIndex: 0
     };
   },
+  watch: {
+    currentSlide1(newIndex) {
+      this.handleCarouselChange(newIndex);
+    },
+    currentSlide2(newIndex) {
+      this.handleSecondCarouselChange(newIndex);
+    }
+  },
   computed: {
-    // Dividir las imágenes en dos grupos para los dos carruseles
     firstCarouselImages() {
       return this.images.slice(0, 3);
     },
@@ -76,18 +85,16 @@ export default {
   },
   methods: {
     handleCarouselChange(index) {
-      console.log(this.firstCarouselImages[index]);
       this.firstCarouselIndex = index;
     },
     handleSecondCarouselChange(index) {
-      console.log(this.secondCarouselImages[index]);
       this.secondCarouselIndex = index;
     },
     confirmSelection() {
       let imagenes = [this.firstCarouselImages[this.firstCarouselIndex].url, this.secondCarouselImages[this.secondCarouselIndex].url];
+      console.log(imagenes);
       if (Array.isArray(imagenes)) {
         useGameDataStore().setSelectedImages(imagenes);
-
         this.$router.push({ name: 'game' });
       }
     }
