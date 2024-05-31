@@ -21,14 +21,12 @@ export default {
             posY: 0,
             posX2: 0,
             posY2: 0,
-            velocidad: 5,
+            velocidad: 10,
             teclasPresionadas: {},
             contenedorAncho: 0,
             contenedorAlto: 0,
             danyoPers1: 0,
             danyoPers2: 0,
-            temporizador: 3, // Agrega el temporizador aquí
-            intervaloTemporizador: null // Para guardar el ID del intervalo del temporizador
         };
     },
     mounted() {
@@ -44,17 +42,11 @@ export default {
             this.moverObjeto();
             this.verificarPosicion();
         }, 10);
-
-        // Iniciar el temporizador cuando el componente se monta
-        this.iniciarTemporizador();
     },
     beforeDestroy() {
         window.removeEventListener('keydown', this.manejarTeclaPresionada);
         window.removeEventListener('keyup', this.manejarTeclaLiberada);
         clearInterval(this.intervalo);
-
-        // Detener el temporizador cuando el componente se destruye
-        this.detenerTemporizador();
     },
     methods: {
         manejarTeclaPresionada(event) {
@@ -113,6 +105,10 @@ export default {
                 this.$refs.play1.attack_manual(this.danyoPers2, '1');
                 this.$refs.play2.attack_manual(this.danyoPers1, '2');
                 this.reposicionar();
+                const player1Health = this.$refs.play1.health;
+                const player2Health = this.$refs.play2.health;
+                console.log("Health updated:", { player1Health, player2Health });
+                this.$emit('health-updated', { player1Health, player2Health });
             }
         },
         reposicionar() {
@@ -127,7 +123,7 @@ export default {
             this.moviendoseP1 = true;
             setTimeout(() => {
                 this.moviendoseP1 = false;
-            }, 3000);
+            }, 200);
         },
         tepiarseP2() {
             this.posX2 = Math.floor(Math.random() * (this.contenedorAncho - 100));
@@ -135,7 +131,7 @@ export default {
             this.moviendoseP2 = true;
             setTimeout(() => {
                 this.moviendoseP2 = false;
-            }, 3000);
+            }, 200);
         },
         actualizarDimensionesContenedor() {
             this.contenedorAncho = this.$refs.stadium.clientWidth;
@@ -148,16 +144,15 @@ export default {
             this.danyoPers2 = data;
         }
     },
-
 }
 </script>
 
 <style>
 .estadio-container {
+    margin-top: 100px;
     position: relative;
-    width: 100%;
-    height: 90vh;
-    /* Altura fija de 90vh */
+    width: 1200px;
+    height: 550px;
     background-image: url("../media/estadio.jpg");
     background-size: cover;
     background-position: center;

@@ -3,6 +3,9 @@ export default {
   methods: {
     goToLogin() {
       this.$router.push({ name: 'login' });
+    },
+    goToGame() {
+      this.$router.push({ name: 'game' });
     }
   }
 }
@@ -13,6 +16,9 @@ export default {
   <body>
     <header>
       <div class="container">
+        <router-link to="/login">
+          <img src="@/media/logo.png" width="100px" alt="logo.png" style="cursor: pointer;">
+        </router-link>
         <nav>
           <a href="#historia">Historia</a>
           <a href="#tutorial">Tutorial</a>
@@ -92,7 +98,7 @@ export default {
 
     <section id="final">
       <h2>¿Listo para Jugar?</h2>
-      <button>Jugar</button>
+      <button @click="goToGame">Jugar</button>
     </section>
 
     <footer>

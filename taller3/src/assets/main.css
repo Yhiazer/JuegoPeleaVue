@@ -85,7 +85,8 @@ header nav {
 }
 
 header a {
-  padding: 20px;
+  padding: 5px;
+  padding-left: 15px;
   text-decoration: none;
   font-weight: bold;
   color: rgb(255, 255, 255);
