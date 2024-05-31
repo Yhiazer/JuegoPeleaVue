@@ -1,7 +1,7 @@
 <template>
     <div style="width: 75px; height: 75px; position: absolute;">
         <div v-if="health > 0.5">
-            <img src="../media/Personajes/Zoro/model.gif" width="75px" alt="model.gif">
+            <img :src="imageUrl" width="75px" alt="model.gif">
         </div>
         <div v-else>
             <img src="../media/Misc/explosion.gif" width="75px" alt="explosion.gif">
@@ -17,6 +17,12 @@ export default {
             maxHealth: 100, /*Math.floor(Math.random() * 30 + 100)*/
             health: 0,
             damage: Math.floor(Math.random() * 10 + 1),
+        }
+    },
+    props: {
+        imageUrl: {
+            type: String,
+            required: true
         }
     },
     mounted() {

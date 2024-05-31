@@ -4,7 +4,7 @@
             <div class="player-container">
                 <div>
                     <div v-if="player1Health > 0.5">
-                        <img src="@/media/Personajes/Zoro/idle-face.jpg" width="100px" alt="zoro-idle.png">
+                        <img :src="images[0]" width="100px" alt="zoro-idle.png">
                     </div>
                     <div v-else>
                         <img src="@/media/Personajes/Zoro/dead-face.png" width="100px" alt="zoro-dead.png">
@@ -28,7 +28,7 @@
             <div class="player-container">
                 <div>
                     <div v-if="player2Health > 0.5">
-                        <img src="@/media/Personajes/Zoro/idle-face.jpg" width="100px" alt="zoro-idle.png">
+                        <img :src="images[1]" width="100px" alt="zoro-idle.png">
                     </div>
                     <div v-else>
                         <img src="@/media/Personajes/Zoro/dead-face.png" width="100px" alt="zoro-dead.png">
@@ -46,8 +46,13 @@
 </template>
 
 <script>
+
 export default {
     props: {
+        images: {
+            type: Array,
+            required: true
+        },
         player1Health: {
             type: Number,
             required: true

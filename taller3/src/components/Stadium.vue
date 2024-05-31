@@ -1,7 +1,7 @@
 <template>
     <div class="estadio-container" ref="stadium">
-        <Character1 id="player1" ref="play1" @send-data="danyo1" />
-        <Character2 id="player2" ref="play2" @send-data="danyo2" />
+        <Character1 :imageUrl="images[0]" id="player1" ref="play1" @send-data="danyo1" />
+        <Character2 :imageUrl="images[1]" id="player2" ref="play2" @send-data="danyo2" />
     </div>
 </template>
 
@@ -14,6 +14,12 @@ export default {
     components: {
         Character1,
         Character2
+    },
+    props: {
+        images: {
+            type: Array,
+            required: true
+        }
     },
     data() {
         return {
@@ -143,7 +149,7 @@ export default {
             this.contenedorAncho = this.$refs.stadium.clientWidth;
             this.contenedorAlto = this.$refs.stadium.clientHeight;
         },
-        subirDanyo(danyo){
+        subirDanyo(danyo) {
             var x = Math.floor(Math.random() * 10 + 1);
             danyo += x;
             console.log("El daño aumentó en " + x);
