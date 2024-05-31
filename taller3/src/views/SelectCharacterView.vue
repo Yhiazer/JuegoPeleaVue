@@ -101,7 +101,6 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  margin-top: 60px;
 }
 
 /* Estilos para que los carruseles estén uno al lado del otro */

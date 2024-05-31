@@ -37,16 +37,22 @@ export default {
         window.addEventListener('keydown', this.manejarTeclaPresionada);
         window.addEventListener('keyup', this.manejarTeclaLiberada);
 
-        this.intervalo = setInterval(() => {
+        this.movimientoInterval = setInterval(() => {
             this.manejarMovimiento();
             this.moverObjeto();
             this.verificarPosicion();
         }, 10);
+
+        this.danyoInterval = setInterval(() => {
+            this.danyoPers1 = this.subirDanyo(this.danyoPers1);
+            this.danyoPers2 = this.subirDanyo(this.danyoPers2);
+        }, 5000);
     },
     beforeDestroy() {
         window.removeEventListener('keydown', this.manejarTeclaPresionada);
         window.removeEventListener('keyup', this.manejarTeclaLiberada);
-        clearInterval(this.intervalo);
+        clearInterval(this.movimientoInterval);
+        clearInterval(this.danyoInterval);
     },
     methods: {
         manejarTeclaPresionada(event) {
@@ -136,6 +142,12 @@ export default {
         actualizarDimensionesContenedor() {
             this.contenedorAncho = this.$refs.stadium.clientWidth;
             this.contenedorAlto = this.$refs.stadium.clientHeight;
+        },
+        subirDanyo(danyo){
+            var x = Math.floor(Math.random() * 10 + 1);
+            danyo += x;
+            console.log("El daño aumentó en " + x);
+            return danyo;
         },
         danyo1(data) {
             this.danyoPers1 = data;

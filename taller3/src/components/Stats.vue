@@ -114,8 +114,8 @@ export default {
                 this.showAttackUp = true;
                 setTimeout(() => {
                     this.showAttackUp = false;
-                }, 10000); // Duración de la animación (2 segundos)
-            }, 12000); // Cada 10 segundos
+                }, 2000); // Duración de la animación (2 segundos)
+            }, 5000); // Cada 10 segundos
         }
     },
     beforeDestroy() {

@@ -16,7 +16,7 @@ import Stats from '@/components/Stats.vue'
 export default {
     components: {
         Stadium,
-        stats
+        Stats
     },
     props: {
         selectedImages: {
