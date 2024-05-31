@@ -53,9 +53,6 @@ export default {
             this.health -= this.calcularEvento(danyo);
             if (this.health <= 0) {
                 this.health = 0;
-                setTimeout(function () {
-                    window.alert("Perdiste Jugador " + number);
-                }, 1500);
             }
         },
 
