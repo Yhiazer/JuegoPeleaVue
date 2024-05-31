@@ -4,10 +4,10 @@
             <div class="player-container">
                 <div>
                     <div v-if="player1Health > 0.5">
-                        <img :src="images[0]" width="100px" alt="p1-idle.png">
+                        <img :src="images[0]" height="80px" alt="p1-idle.png">
                     </div>
                     <div v-else>
-                        <img src="@/media/Misc/tumba.png" width="100px" alt="p1-dead.png">
+                        <img src="@/media/Misc/tumba.png" height="80px" alt="p1-dead.png">
                     </div>
                 </div>
                 <div class="barras">
@@ -28,10 +28,10 @@
             <div class="player-container">
                 <div>
                     <div v-if="player2Health > 0.5">
-                        <img :src="images[1]" width="100px" alt="p2-idle.png">
+                        <img :src="images[1]" height="80px" alt="p2-idle.png">
                     </div>
                     <div v-else>
-                        <img src="@/media/Misc/tumba.png" width="100px" alt="p2-dead.png">
+                        <img src="@/media/Misc/tumba.png" height="80px" alt="p2-dead.png">
                     </div>
                 </div>
                 <div class="barras">

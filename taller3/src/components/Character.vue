@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 75px; height: 75px; position: absolute;">
+    <div style="width: 75px; position: absolute;">
         <div v-if="health > 0.5">
             <img :src="imageUrl" width="75px" alt="model.gif">
         </div>

@@ -58,10 +58,10 @@ export default {
       currentSlide1: 0,
       currentSlide2: 0,
       images: [
-        { id: 1, url: 'src/media/Personajes/Caballero/model.jpg' },
+        { id: 1, url: 'src/media/Personajes/Slime/model.jpg' },
         { id: 2, url: 'src/media/Personajes/Max/model.png' },
         { id: 3, url: 'src/media/Personajes/Luffy/model.gif' },
-        { id: 4, url: 'src/media/Personajes/Slime/model.jpg' },
+        { id: 4, url: 'src/media/Personajes/Goku/model.gif' },
         { id: 5, url: 'src/media/Personajes/Zoro/model.gif' },
         { id: 6, url: 'src/media/Personajes/Terreneitor/model.jpg' }
       ],
