@@ -1,5 +1,6 @@
 <template>
     <div class="estadio">
+        <!-- Aquí pasamos los datos recibidos como props al componente Stadium -->
         <Stadium />
     </div>
 </template>
@@ -10,9 +11,19 @@ import Stadium from '@/components/Stadium.vue'
 export default {
     components: {
         Stadium
+    },
+    props: {
+        selectedImages: {
+            type: Array,
+            required: true
+        }
+    },
+    mounted() {
+        console.log('selectedImages:', this.selectedImages);
     }
 }
 </script>
+
 
 <style>
 .estadio{
