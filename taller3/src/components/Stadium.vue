@@ -2,7 +2,7 @@
     <div class="estadio-container" ref="stadium">
         <Character1 :imageUrl="images[0]" id="player1" ref="play1" @send-data="danyo1" />
         <Character2 :imageUrl="images[1]" id="player2" ref="play2" @send-data="danyo2" />
-        <audio ref="backgroundMusic" loop :volume="musicVolume">
+        <audio ref="backgroundMusic" loop :volume="0.1">
             <source src="../media/Music/Pelea.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
