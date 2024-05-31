@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <NavBar />
+  <div style="padding-top: 50px;">
     <h1 style="text-align: center; padding: 2%;">Selección de Personajes</h1>
 
     <div class="carousel-container">
@@ -41,6 +42,7 @@
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import { useGameDataStore } from '@/stores/imagenes';
+import NavBar from '@/components/NavBar.vue';
 
 export default {
   name: 'SelectCharacterView',
@@ -49,6 +51,7 @@ export default {
     Slide,
     Pagination,
     Navigation,
+    NavBar,
   },
   data() {
     return {
