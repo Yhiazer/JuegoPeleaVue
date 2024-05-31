@@ -2,7 +2,6 @@
     <div style="width: 75px; height: 75px; position: absolute;">
         <div v-if="health > 0.5">
             <img src="../media/Personajes/Zoro/model.gif" width="75px" alt="model.gif">
-            <p style="text-align: center; color: red;">P1</p>
         </div>
         <div v-else>
             <img src="../media/Misc/explosion.gif" width="75px" alt="explosion.gif">
@@ -56,6 +55,10 @@ export default {
 
         getDanyo() {
             this.$emit('send-data', this.damage);
+        },
+
+        goToGameOver() {
+            this.$router.push({ name: 'gameover' });
         },
     }
 }

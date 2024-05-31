@@ -3,6 +3,9 @@ export default {
   methods: {
     goToLogin() {
       this.$router.push({ name: 'login' });
+    },
+    goToGame() {
+      this.$router.push({ name: 'game' });
     }
   }
 }
@@ -95,7 +98,7 @@ export default {
 
     <section id="final">
       <h2>¿Listo para Jugar?</h2>
-      <button>Jugar</button>
+      <button @click="goToGame">Jugar</button>
     </section>
 
     <footer>

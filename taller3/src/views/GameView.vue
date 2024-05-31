@@ -40,7 +40,6 @@ export default {
     z-index: 10;
 }
 .estadio {
-    padding-top: 50px;
     min-width: 100vh;
     min-height: 100vh;
     display: flex;

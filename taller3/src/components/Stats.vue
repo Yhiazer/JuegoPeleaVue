@@ -17,6 +17,14 @@
                     </div>
                 </div>
             </div>
+            <div class="events">
+                <p >{{ time }}</p>
+                <div class="attackup-container">
+                    <transition name="fade">
+                        <img v-if="showAttackUp" src="@/media/Misc/attackup.png" width="150px" style="z-index: 10;" alt="attackup.png">
+                    </transition>
+                </div>
+            </div>
             <div class="player-container">
                 <div>
                     <div v-if="player2Health > 0.5">
@@ -57,6 +65,14 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+            time: 0,
+            interval: null,
+            showAttackUp: false,
+            attackUpInterval: null
+        };
+    },
     computed: {
         player1HealthPercentage() {
             return `${(this.player1Health / this.player1MaxHealth) * 100}%`;
@@ -64,9 +80,51 @@ export default {
         player2HealthPercentage() {
             return `${(this.player2Health / this.player2MaxHealth) * 100}%`;
         }
+    },
+    watch: {
+        player1Health(newVal) {
+            if (newVal <= 0) {
+                this.stopTimer();
+            }
+        },
+        player2Health(newVal) {
+            if (newVal <= 0) {
+                this.stopTimer();
+            }
+        }
+    },
+    mounted() {
+        this.startTimer();
+        this.startAttackUpTimer();
+    },
+    methods: {
+        startTimer() {
+            this.interval = setInterval(() => {
+                this.time++;
+            }, 1000);
+        },
+        stopTimer() {
+            clearInterval(this.interval);
+            this.interval = null;
+            clearInterval(this.attackUpInterval);
+            this.attackUpInterval = null;
+        },
+        startAttackUpTimer() {
+            this.attackUpInterval = setInterval(() => {
+                this.showAttackUp = true;
+                setTimeout(() => {
+                    this.showAttackUp = false;
+                }, 10000); // Duración de la animación (2 segundos)
+            }, 12000); // Cada 10 segundos
+        }
+    },
+    beforeDestroy() {
+        clearInterval(this.interval);
+        clearInterval(this.attackUpInterval);
     }
 };
 </script>
+
 
 <style>
 .player-header {
@@ -79,8 +137,6 @@ export default {
 .player-header .container {
     display: flex;
     align-items: center;
-    flex-direction: row;
-    justify-content: space-between;
 }
 
 .player-header .barras {
@@ -104,6 +160,24 @@ export default {
     color: rgb(255, 255, 255);
 }
 
+.events {
+    display: flex;
+    align-items: center;
+    flex-direction: column
+}
+
+.attackup-container {
+    position: relative;
+}
+
+.attackup-container img {
+    position: relative;
+}
+
+.attackup-placeholder {
+    visibility: hidden;
+}
+
 .barra-hp {
     width: 100%;
     height: 10px;
@@ -115,5 +189,13 @@ export default {
     height: 100%;
     background-color: green;
     transition: width 0.3s ease-in-out;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
 }
 </style>

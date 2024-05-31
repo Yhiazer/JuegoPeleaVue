@@ -149,10 +149,10 @@ export default {
 
 <style>
 .estadio-container {
+    margin-top: 100px;
     position: relative;
-    width: 1300px;
-    height: 650px;
-    /* Altura fija de 90vh */
+    width: 1200px;
+    height: 550px;
     background-image: url("../media/estadio.jpg");
     background-size: cover;
     background-position: center;
