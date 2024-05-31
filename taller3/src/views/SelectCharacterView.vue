@@ -58,7 +58,7 @@ export default {
       currentSlide1: 0,
       currentSlide2: 0,
       images: [
-        { id: 1, url: 'src/media/Personajes/Slime/model.jpg' },
+        { id: 1, url: 'src/media/Personajes/Sanji/model.gif' },
         { id: 2, url: 'src/media/Personajes/Max/model.png' },
         { id: 3, url: 'src/media/Personajes/Luffy/model.gif' },
         { id: 4, url: 'src/media/Personajes/Goku/model.gif' },

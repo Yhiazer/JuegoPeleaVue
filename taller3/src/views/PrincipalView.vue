@@ -67,11 +67,11 @@ export default {
           <div class="carta">
             <h3 class="color-acento">Controles</h3>
             <p><span style="font-weight: bold;">Jugador </span> 1 <br>
-              <span style="font-weight: bold;">Movimiento:</span> Flechas de dirección<br>
-              <span style="font-weight: bold;">Teleportación:</span> Num 0<br>
-              <span style="font-weight: bold;">Jugador </span> 2 <br>
               <span style="font-weight: bold;">Movimiento:</span> W, A, S y D<br>
               <span style="font-weight: bold;">Teleportación:</span> C<br>
+              <span style="font-weight: bold;">Jugador </span> 2 <br>
+              <span style="font-weight: bold;">Movimiento:</span> Flechas de dirección<br>
+              <span style="font-weight: bold;">Teleportación:</span> Num 0<br>
             </p>
           </div>
           <div class="carta">
@@ -79,9 +79,8 @@ export default {
             <p>Cada cierto periodo de tiempo el atributo
               de ataque de
               ambos peleadores subira de manera aleatoria, haciendolos mas poderosos, pero existe la posibilidad de que
-              falles tu ataque. <br>
-              Tambien existe la habilidad de teletransporte, aunque no abuses de ello ya que vaciara tu barra de
-              accion, dejandote vulnerable.</p>
+              falles tu ataque, como de que aciertes un golpe critico. <br>
+              Tambien existe la habilidad de teletransporte, aunque no abuses de ello podrias terminar al lado de tu enemigo.</p>
           </div>
           <div class="carta">
             <h3 class="color-acento">Personajes</h3>

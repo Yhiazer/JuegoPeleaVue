@@ -1,7 +1,7 @@
 <template>
-    <div style="width: 75px; position: absolute;">
+    <div style="height: 75px; position: absolute;">
         <div v-if="health > 0.5">
-            <img :src="imageUrl" width="75px" alt="model.gif">
+            <img :src="imageUrl" height="75px" alt="model.gif">
         </div>
         <div v-else>
             <img src="../media/Misc/explosion.gif" width="75px" alt="explosion.gif">
