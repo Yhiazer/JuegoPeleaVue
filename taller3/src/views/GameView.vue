@@ -15,7 +15,8 @@ import Stadium from '@/components/Stadium.vue'
 import Stats from '@/components/Stats.vue'
 export default {
     components: {
-        Stadium
+        Stadium,
+        stats
     },
     props: {
         selectedImages: {
@@ -25,8 +26,6 @@ export default {
     },
     mounted() {
         console.log('selectedImages:', this.selectedImages);
-        Stadium,
-        Stats
     },
     data() {
         return {
