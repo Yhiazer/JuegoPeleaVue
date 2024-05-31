@@ -7,7 +7,7 @@
         </div>
         <section style="padding: 25px;">
             <h3 style="padding: 20px;">¿Jugar Otra Vez?</h3>
-            <button @click="goToGame">Jugar</button>
+            <button @click="goToSeleccion">Jugar</button>
         </section>
     </div>
 </template>
@@ -20,8 +20,8 @@ export default {
         NavBar
     },
     methods: {
-        goToGame() {
-            this.$router.push({ name: 'game' });
+        goToSeleccion() {
+            this.$router.push({ name: 'seleccion' });
         }
     },
     props: {
