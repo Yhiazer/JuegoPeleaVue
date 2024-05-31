@@ -1,6 +1,6 @@
 // router.js
 import { createRouter, createWebHistory } from 'vue-router';
-import { useGameDataStore } from '@/stores/store'; // Importa el store de Pinia
+import { useGameDataStore } from '@/stores/imagenes'; // Importa el store de Pinia
 
 import Login from '@/views/LoginView.vue';
 import App from '@/views/PrincipalView.vue';

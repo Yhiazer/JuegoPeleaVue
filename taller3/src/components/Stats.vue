@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="barras">
-                    <p>Player 1 : Name</p>
+                    <p>Player 1: {{ username }}</p>
                     <div class="barra-hp">
                         <div class="relleno-hp" :style="{ width: player1HealthPercentage }"></div>
                     </div>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="barras">
-                    <p>Player 2 : Name</p>
+                    <p>Player 2 : Invitado</p>
                     <div class="barra-hp">
                         <div class="relleno-hp" :style="{ width: player2HealthPercentage }"></div>
                     </div>
@@ -49,6 +49,10 @@
 
 export default {
     props: {
+        username: {
+            type: String,
+            required: true
+        },
         images: {
             type: Array,
             required: true

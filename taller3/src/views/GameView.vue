@@ -1,6 +1,6 @@
 <template>
     <div class="navbar">
-        <Stats :images="selectedImages" :player1Health="player1Health" :player1MaxHealth="player1MaxHealth" :player2Health="player2Health"
+        <Stats :username :images="selectedImages" :player1Health="player1Health" :player1MaxHealth="player1MaxHealth" :player2Health="player2Health"
             :player2MaxHealth="player2MaxHealth" />
     </div>
     <div class="estadio">
@@ -13,7 +13,8 @@
 <script>
 import Stadium from '@/components/Stadium.vue'
 import Stats from '@/components/Stats.vue'
-import { useGameDataStore } from '@/stores/store';
+import { useGameDataStore } from '@/stores/imagenes';
+import { useUserDataStore } from '@/stores/username';
 
 export default {
     components: {
@@ -24,6 +25,9 @@ export default {
         selectedImages() {
             return useGameDataStore().selectedImages;
         },
+        username(){
+            return useUserDataStore().username;
+        }
     },
     mounted() {
         console.log('selectedImages:', this.selectedImages);
