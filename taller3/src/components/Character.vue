@@ -1,7 +1,7 @@
 <template>
     <div style="height: 75px; position: absolute;">
         <div v-if="health > 0.5">
-            <img :src="imageUrl" height="75px" alt="model.gif">
+            <img :src="currentImageUrl" height="75px" alt="model.gif">
         </div>
         <div v-else>
             <img src="../media/Misc/explosion.gif" width="75px" alt="explosion.gif">
@@ -17,6 +17,7 @@ export default {
             maxHealth: 100, /*Math.floor(Math.random() * 30 + 100)*/
             health: 0,
             damage: Math.floor(Math.random() * 10 + 1),
+            currentImageUrl: this.imageUrl,
         }
     },
     props: {
@@ -49,8 +50,9 @@ export default {
             return danyo;
         },
 
-        attack_manual(danyo, number) {
+        attack_manual(danyo) {
             this.health -= this.calcularEvento(danyo);
+            this.efectoTp();
             if (this.health <= 0) {
                 this.health = 0;
             }
@@ -62,6 +64,13 @@ export default {
 
         goToGameOver() {
             this.$router.push({ name: 'gameover' });
+        },
+
+        efectoTp(){
+            setTimeout(() => {
+                this.currentImageUrl = (this.currentImageUrl === this.imageUrl) ? 'src/media/Misc/tp.png' : this.imageUrl;
+            }, 100);
+            this.currentImageUrl = (this.currentImageUrl === this.imageUrl) ? 'src/media/Misc/tp.png' : this.imageUrl;
         },
     }
 }

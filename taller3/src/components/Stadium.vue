@@ -7,7 +7,11 @@
             Your browser does not support the audio element.
         </audio>
         <audio ref="tepAudio" volume="0.1">
-            <source src="../media/Music/Tepiarse.mp3" type="audio/mpeg">
+            <source src="../media/Music/Tp1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <audio ref="tep2Audio" volume="0.1">
+            <source src="../media/Music/Tp2.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
     </div>
@@ -118,7 +122,7 @@ export default {
             }
             if (this.teclasPresionadas['c']) {
                 if (!this.moviendoseP1) {
-                    this.tepiarseP1();
+                    this.tpP1();
                 }
             }
             if (this.teclasPresionadas['ArrowUp'] && this.posY2 > 0) {
@@ -135,15 +139,8 @@ export default {
             }
             if (this.teclasPresionadas['0']) {
                 if (!this.moviendoseP2) {
-                    this.tepiarseP2();
+                    this.tpP2();
                 }
-            }
-            if (this.teclasPresionadas['j']) {
-                this.musicVolume *= 0.5;
-                if (this.musicVolume < 0) {
-                    this.musicVolume = 0;
-                }
-                this.setMusicVolume(this.musicVolume);
             }
         },
         moverObjeto() {
@@ -173,26 +170,31 @@ export default {
             this.posX2 = Math.floor(Math.random() * (this.contenedorAncho - 100));
             this.posY2 = Math.floor(Math.random() * (this.contenedorAlto - 100));
         },
-        tepiarseP1() {
-            this.reproducirAudioTepiarse();
+        tpP1() {
+            this.reproducirAudioTp1();
             this.posX = Math.floor(Math.random() * (this.contenedorAncho - 100));
             this.posY = Math.floor(Math.random() * (this.contenedorAlto - 100));
             this.moviendoseP1 = true;
+            this.$refs.play1.efectoTp();
             setTimeout(() => {
                 this.moviendoseP1 = false;
             }, 200);
         },
-        tepiarseP2() {
-            this.reproducirAudioTepiarse();
+        tpP2() {
+            this.reproducirAudioTp2();
             this.posX2 = Math.floor(Math.random() * (this.contenedorAncho - 100));
             this.posY2 = Math.floor(Math.random() * (this.contenedorAlto - 100));
             this.moviendoseP2 = true;
+            this.$refs.play2.efectoTp();
             setTimeout(() => {
                 this.moviendoseP2 = false;
             }, 200);
         },
-        reproducirAudioTepiarse() {
+        reproducirAudioTp1() {
             this.$refs.tepAudio.play();
+        },
+        reproducirAudioTp2() {
+            this.$refs.tep2Audio.play();
         },
         actualizarDimensionesContenedor() {
             this.contenedorAncho = this.$refs.stadium.clientWidth;
