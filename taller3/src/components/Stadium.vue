@@ -31,10 +31,10 @@ export default {
     },
     data() {
         return {
-            posX: 0,
-            posY: 0,
-            posX2: 0,
-            posY2: 0,
+            posX: 50,
+            posY: 250,
+            posX2: 1100,
+            posY2: 250,
             velocidad: 10,
             teclasPresionadas: {},
             contenedorAncho: 0,
