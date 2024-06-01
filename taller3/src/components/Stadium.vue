@@ -14,6 +14,10 @@
             <source src="../media/Music/Tp2.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
+        <audio ref="dmgAudio" volume="0.1">
+            <source src="../media/Music/Dmg.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
     </div>
 </template>
 
@@ -162,6 +166,7 @@ export default {
                 const player2Health = this.$refs.play2.health;
                 console.log("Health updated:", { player1Health, player2Health });
                 this.$emit('health-updated', { player1Health, player2Health });
+                this.reproducirAudioDmg();
             }
         },
         reposicionar() {
@@ -195,6 +200,9 @@ export default {
         },
         reproducirAudioTp2() {
             this.$refs.tep2Audio.play();
+        },
+        reproducirAudioDmg() {
+            this.$refs.dmgAudio.play();
         },
         actualizarDimensionesContenedor() {
             this.contenedorAncho = this.$refs.stadium.clientWidth;
