@@ -68,9 +68,9 @@ export default {
 
         efectoTp(){
             setTimeout(() => {
-                this.currentImageUrl = (this.currentImageUrl === this.imageUrl) ? 'src/media/Misc/tp.png' : this.imageUrl;
+                this.currentImageUrl = (this.currentImageUrl === this.imageUrl) ? 'src/client/media/Misc/tp.png' : this.imageUrl;
             }, 100);
-            this.currentImageUrl = (this.currentImageUrl === this.imageUrl) ? 'src/media/Misc/tp.png' : this.imageUrl;
+            this.currentImageUrl = (this.currentImageUrl === this.imageUrl) ? 'src/client/media/Misc/tp.png' : this.imageUrl;
         },
     }
 }

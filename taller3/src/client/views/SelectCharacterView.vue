@@ -41,8 +41,8 @@
 <script>
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
-import { useGameDataStore } from '@/stores/imagenes';
-import NavBar from '@/components/NavBar.vue';
+import { useGameDataStore } from '@/client/stores/imagenes';
+import NavBar from '@/client/components/NavBar.vue';
 
 export default {
   name: 'SelectCharacterView',
@@ -58,12 +58,12 @@ export default {
       currentSlide1: 0,
       currentSlide2: 0,
       images: [
-        { id: 1, url: 'src/media/Personajes/Sanji/model.gif' },
-        { id: 2, url: 'src/media/Personajes/Max/model.png' },
-        { id: 3, url: 'src/media/Personajes/Luffy/model.gif' },
-        { id: 4, url: 'src/media/Personajes/Goku/model.gif' },
-        { id: 5, url: 'src/media/Personajes/Zoro/model.gif' },
-        { id: 6, url: 'src/media/Personajes/Terreneitor/model.jpg' }
+        { id: 1, url: 'src/client/media/Personajes/Sanji/model.gif' },
+        { id: 2, url: 'src/client/media/Personajes/Max/model.png' },
+        { id: 3, url: 'src/client/media/Personajes/Luffy/model.gif' },
+        { id: 4, url: 'src/client/media/Personajes/Goku/model.gif' },
+        { id: 5, url: 'src/client/media/Personajes/Zoro/model.gif' },
+        { id: 6, url: 'src/client/media/Personajes/Terreneitor/model.jpg' }
       ],
       // Variables para almacenar los índices seleccionados de los carruseles
       firstCarouselIndex: 0,

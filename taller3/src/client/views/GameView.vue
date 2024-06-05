@@ -11,10 +11,10 @@
 </template>
 
 <script>
-import Stadium from '@/components/Stadium.vue'
-import Stats from '@/components/Stats.vue'
-import { useGameDataStore } from '@/stores/imagenes';
-import { useUserDataStore } from '@/stores/username';
+import Stadium from '@/client/components/Stadium.vue'
+import Stats from '@/client/components/Stats.vue'
+import { useGameDataStore } from '@/client/stores/imagenes';
+import { useUserDataStore } from '@/client/stores/username';
 
 export default {
     components: {

@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import NavBar from '@/components/NavBar.vue'
-import { useUserDataStore } from '@/stores/username';
+import NavBar from '@/client/components/NavBar.vue'
+import { useUserDataStore } from '@/client/stores/username';
 
 export default {
   components: {
@@ -35,39 +35,33 @@ export default {
   data() {
     return {
       email: '',
-      password: '',
-      users: []
+      password: ''
     }
   },
   methods: {
-    async fetchUsers() {
+    async checkEmail() {
       try {
-        const response = await fetch('/emails.txt');
-        const data = await response.text();
-        this.users = data.split('\n').map(line => {
-          const [email, username, password] = line.split(',');
-          return { email: email.trim(), username: username.trim(), password: password.trim() };
+        const response = await fetch('/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email: this.email, password: this.password })
         });
-      } catch (error) {
-        console.error('Error fetching users:', error);
-      }
-    },
-    checkEmail() {
-      const user = this.users.find(user => user.email === this.email.trim());
-      if (user) {
-        if (user.password === this.password.trim()) {
-          useUserDataStore().setUsername(user.username);
+
+        const data = await response.json();
+
+        if (response.ok) {
+          useUserDataStore().setUsername(data.username);
           this.$router.push({ name: 'seleccion' });
         } else {
-          alert('Contraseña incorrecta.');
+          alert(data.message);
         }
-      } else {
-        alert('Email no encontrado.');
+      } catch (error) {
+        console.error('Error during login:', error);
+        alert('Ocurrió un error. Inténtalo de nuevo.');
       }
     }
-  },
-  mounted() {
-    this.fetchUsers();
   }
 }
 </script>

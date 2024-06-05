@@ -17,7 +17,7 @@ export default {
     <header>
       <div class="container">
         <router-link to="/login">
-          <img src="@/media/logo.png" width="100px" alt="logo.png" style="cursor: pointer;">
+          <img src="@/client/media/logo.png" width="100px" alt="logo.png" style="cursor: pointer;">
         </router-link>
         <nav>
           <a href="#historia">Historia</a>
@@ -28,7 +28,7 @@ export default {
     </header>
 
     <section id="inicio">
-      <img src="@/media/logo.png" alt="logo.png">
+      <img src="@/client/media/logo.png" alt="logo.png">
       <button @click="goToLogin">Jugar</button>
     </section>
 
@@ -51,8 +51,8 @@ export default {
           </p>
         </div>
         <div class="img-container">
-          <video src="@/media/dbzop_mute.mp4" autoplay="true" muted="true" loop="true" width="720px"
-            poster="@/media/luffyvsgoku.png"></video>
+          <video src="@/client/media/dbzop_mute.mp4" autoplay="true" muted="true" loop="true" width="720px"
+            poster="@/client/media/luffyvsgoku.png"></video>
         </div>
       </div>
       <div class="cont">

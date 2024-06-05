@@ -1,12 +1,12 @@
 // router.js
 import { createRouter, createWebHistory } from 'vue-router';
-import { useGameDataStore } from '@/stores/imagenes'; // Importa el store de Pinia
+import { useGameDataStore } from '@/client/stores/imagenes'; // Importa el store de Pinia
 
-import Login from '@/views/LoginView.vue';
-import App from '@/views/PrincipalView.vue';
-import Seleccion from '@/views/SelectCharacterView.vue';
-import Game from '@/views/GameView.vue';
-import GameOver from '@/views/GameOverView.vue'
+import Login from '@/client/views/LoginView.vue';
+import App from '@/client/views/PrincipalView.vue';
+import Seleccion from '@/client/views/SelectCharacterView.vue';
+import Game from '@/client/views/GameView.vue';
+import GameOver from '@/client/views/GameOverView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

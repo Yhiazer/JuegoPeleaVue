@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import Character1 from '@/components/Character.vue'
-import Character2 from '@/components/Character.vue'
+import Character1 from '@/client/components/Character.vue'
+import Character2 from '@/client/components/Character.vue'
 
 export default {
     name: 'Stadium',
@@ -228,6 +228,19 @@ export default {
                 const winner = player1Health <= 0 ? 'Jugador 2' : 'Jugador 1';
                 const combatTime = this.time;
 
+                // Enviar datos al servidor
+                fetch('/guardarDatos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ winner, combatTime })
+                }).then(response => {
+                    // Manejar la respuesta si es necesario
+                }).catch(error => {
+                    console.error('Error al enviar datos al servidor:', error);
+                });
+
                 setTimeout(() => {
                     this.$router.push({
                         name: 'gameover',
@@ -236,6 +249,7 @@ export default {
                 }, 3000);
             }
         }
+
     }
 }
 </script>

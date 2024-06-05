@@ -7,7 +7,7 @@
                         <img :src="images[0]" height="80px" alt="p1-idle.png">
                     </div>
                     <div v-else>
-                        <img src="@/media/Misc/tumba.png" height="80px" alt="p1-dead.png">
+                        <img src="@/client/media/Misc/tumba.png" height="80px" alt="p1-dead.png">
                     </div>
                 </div>
                 <div class="barras">
@@ -21,7 +21,7 @@
                 <p >{{ time }}</p>
                 <div class="attackup-container">
                     <transition name="fade">
-                        <img v-if="showAttackUp" src="@/media/Misc/attackup.png" width="150px" style="z-index: 10;" alt="attackup.png">
+                        <img v-if="showAttackUp" src="@/client/media/Misc/attackup.png" width="150px" style="z-index: 10;" alt="attackup.png">
                     </transition>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                         <img :src="images[1]" height="80px" alt="p2-idle.png">
                     </div>
                     <div v-else>
-                        <img src="@/media/Misc/tumba.png" height="80px" alt="p2-dead.png">
+                        <img src="@/client/media/Misc/tumba.png" height="80px" alt="p2-dead.png">
                     </div>
                 </div>
                 <div class="barras">
