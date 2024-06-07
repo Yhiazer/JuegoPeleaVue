@@ -1,4 +1,1 @@
-Ganador: Jugador 2, Tiempo de combate: 11
-Ganador: Jugador 2, Tiempo de combate: 12
-Ganador: Jugador 2, Tiempo de combate: 19
-Ganador: Jugador 2, Tiempo de combate: 93
+Ganador: Jugador 2, Tiempo de combate: 53
