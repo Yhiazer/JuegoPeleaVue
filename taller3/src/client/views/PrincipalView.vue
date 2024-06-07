@@ -6,6 +6,9 @@ export default {
     },
     goToGame() {
       this.$router.push({ name: 'game' });
+    },
+    goToWiki() {
+      this.$router.push({ name: 'wiki' });
     }
   }
 }
@@ -56,7 +59,7 @@ export default {
         </div>
       </div>
       <div class="cont">
-        <button>+ Informacion</button>
+        <button @click="goToWiki">+ Infomarción</button>
       </div>
     </section>
 

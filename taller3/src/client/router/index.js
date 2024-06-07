@@ -6,7 +6,8 @@ import Login from '@/client/views/LoginView.vue';
 import App from '@/client/views/PrincipalView.vue';
 import Seleccion from '@/client/views/SelectCharacterView.vue';
 import Game from '@/client/views/GameView.vue';
-import GameOver from '@/client/views/GameOverView.vue'
+import GameOver from '@/client/views/GameOverView.vue';
+import Wiki from '@/client/views/WikiView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -44,6 +45,11 @@ const router = createRouter({
       component: GameOver,
       props: route => ({ winner: route.params.winner, combatTime: route.params.combatTime })
     },
+    {
+      path: '/wiki',
+      name: 'wiki',
+      component: Wiki
+    }
   ]
 });
 
