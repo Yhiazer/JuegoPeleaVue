@@ -4,9 +4,6 @@ export default {
     goToLogin() {
       this.$router.push({ name: 'login' });
     },
-    goToGame() {
-      this.$router.push({ name: 'game' });
-    },
     goToWiki() {
       this.$router.push({ name: 'wiki' });
     }
@@ -100,7 +97,7 @@ export default {
 
     <section id="final">
       <h2>¿Listo para Jugar?</h2>
-      <button @click="goToGame">Jugar</button>
+      <button @click="goToLogin">Jugar</button>
     </section>
 
     <footer>
