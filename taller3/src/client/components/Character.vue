@@ -43,7 +43,7 @@ export default {
             if (x == 0) {
                 danyo = danyo * 3;
                 console.log("Critico " + danyo + " Damage!!");
-            } else if (x == 1 || x == 2) {
+            } else if (x == 1 ) {
                 danyo = danyo * 0;
                 console.log("Fallo!!");
             }

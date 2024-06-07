@@ -183,7 +183,7 @@ export default {
             this.$refs.play1.efectoTp();
             setTimeout(() => {
                 this.moviendoseP1 = false;
-            }, 200);
+            }, 100);
         },
         tpP2() {
             this.reproducirAudioTp2();
@@ -193,7 +193,7 @@ export default {
             this.$refs.play2.efectoTp();
             setTimeout(() => {
                 this.moviendoseP2 = false;
-            }, 200);
+            }, 100);
         },
         reproducirAudioTp1() {
             this.$refs.tepAudio.play();
