@@ -180,7 +180,7 @@ export default {
 .events p{
     position: absolute; 
     bottom: -10px;
-    right: -53px;
+    right: -35px;
 }
 
 .attackup-container {
@@ -190,7 +190,7 @@ export default {
 .attackup-container img {
     position: absolute;
     top: 1px;
-    right: -120px;
+    right: -100px;
     z-index: 10;
 }
 
