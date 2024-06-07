@@ -141,6 +141,7 @@ export default {
     background-color: rgb(63, 63, 63);
     position: fixed;
     width: 100%;
+    height: 115px;
 }
 
 .player-header .container {
@@ -172,7 +173,14 @@ export default {
 .events {
     display: flex;
     align-items: center;
-    flex-direction: column
+    flex-direction: column;
+    position: relative;
+}
+
+.events p{
+    position: absolute; 
+    bottom: -10px;
+    right: -53px;
 }
 
 .attackup-container {
@@ -180,7 +188,10 @@ export default {
 }
 
 .attackup-container img {
-    position: relative;
+    position: absolute;
+    top: 1px;
+    right: -120px;
+    z-index: 10;
 }
 
 .attackup-placeholder {
