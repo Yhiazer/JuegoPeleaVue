@@ -23,6 +23,7 @@ export default {
           <a href="#historia">Historia</a>
           <a href="#tutorial">Tutorial</a>
           <a href="#final">Jugar</a>
+          <a href="#inicio">Perfil</a>
         </nav>
       </div>
     </header>

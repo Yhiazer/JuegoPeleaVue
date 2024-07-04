@@ -8,6 +8,8 @@ import Seleccion from '@/client/views/SelectCharacterView.vue';
 import Game from '@/client/views/GameView.vue';
 import GameOver from '@/client/views/GameOverView.vue';
 import Wiki from '@/client/views/WikiView.vue';
+import Perfil from '@/client/views/PerfilView.vue';
+import Register from '@/client/views/RegisterView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,7 +51,17 @@ const router = createRouter({
       path: '/wiki',
       name: 'wiki',
       component: Wiki
-    }
+    },
+    {
+      path: '/perfil',
+      name: 'perfil',
+      component: Perfil
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: Register
+    },
   ]
 });
 
