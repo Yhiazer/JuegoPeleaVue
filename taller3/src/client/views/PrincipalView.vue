@@ -6,6 +6,9 @@ export default {
     },
     goToWiki() {
       this.$router.push({ name: 'wiki' });
+    },
+    goToPerfil() {
+      this.$router.push({ name: 'perfil' });
     }
   }
 }
@@ -23,7 +26,7 @@ export default {
           <a href="#historia">Historia</a>
           <a href="#tutorial">Tutorial</a>
           <a href="#final">Jugar</a>
-          <a href="#inicio">Perfil</a>
+          <a @click="goToPerfil" style="cursor: pointer;">Perfil</a>
         </nav>
       </div>
     </header>

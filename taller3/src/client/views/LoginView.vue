@@ -20,6 +20,11 @@
           </div>
         </form>
       </div>
+      <p style="padding-top: 30px; font-size: medium;">La cuenta es necesaria para poder ejecutar el juego, si no, puedes disfrutar de la wiki.</p>
+      <div class="botones" style="padding-top: 50px;">
+        <button class="crear" @click="goToRegister">Crear Cuenta</button>
+        <button class="volver" @click="goToPrincipal">Volver Atrás</button>
+      </div>
     </div>
   </div>
 </template>
@@ -61,6 +66,12 @@ export default {
         console.error('Error during login:', error);
         alert('Ocurrió un error. Inténtalo de nuevo.');
       }
+    },
+    goToPrincipal() {
+      this.$router.push({ name: 'principal' });
+    },
+    goToRegister() {
+      this.$router.push({ name: 'register' });
     }
   }
 }
@@ -90,6 +101,7 @@ button:hover {
   width: 100%;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 15px;
@@ -159,5 +171,20 @@ input.input {
 
 .boton:hover {
   background-color: rgb(103, 206, 127);
+}
+
+.crear {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.crear {
+  background-color: rgb(22, 127, 78);
+}
+
+.crear:hover {
+  background-color: rgb(56, 179, 121);
 }
 </style>

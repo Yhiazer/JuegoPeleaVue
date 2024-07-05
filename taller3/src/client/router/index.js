@@ -10,6 +10,7 @@ import GameOver from '@/client/views/GameOverView.vue';
 import Wiki from '@/client/views/WikiView.vue';
 import Perfil from '@/client/views/PerfilView.vue';
 import Register from '@/client/views/RegisterView.vue';
+import Edit from '@/client/views/EditView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -61,6 +62,11 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/edit',
+      name: 'edit',
+      component: Edit
     },
   ]
 });

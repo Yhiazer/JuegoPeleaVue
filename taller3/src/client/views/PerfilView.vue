@@ -5,16 +5,17 @@
             <div class="imagen-perfil">
                 <div class="drop-zone" :class="{ 'drop-zone-dragging': dragging }" @dragover.prevent="handleDragOver"
                     @dragenter="handleDragEnter" @dragleave="handleDragLeave" @drop="handleDrop">
-                    <div v-if="!image" :class="{ 'placeholder-highlight': !dragging, 'placeholder-highlight': dragging}">
+                    <div v-if="!image"
+                        :class="{ 'placeholder-highlight': !dragging, 'placeholder-highlight': dragging }">
                         {{ dragging ? 'Suelta Aquí' : 'Arrastra y suelta la imagen de perfil' }}
                     </div>
                     <img v-else :src="image" class="uploaded-image" />
                 </div>
-                <h2>Imagen de Perfil</h2>
+                <h2>Imagen de Perfil <span @click="goToEdit" style="cursor: pointer;">📝</span></h2>
             </div>
             <div class="info">
-                <h3>👤 Usuario : [Username] <span style="cursor: pointer;">📝</span></h3>
-                <h3>📧 Correo : [Correo de Usuario] <span style="cursor: pointer;">📝</span></h3>
+                <h3>👤 Usuario : [Username] <span @click="goToEdit" style="cursor: pointer;">📝</span></h3>
+                <h3>📧 Correo : [Correo de Usuario] <span @click="goToEdit" style="cursor: pointer;">📝</span></h3>
                 <h3>⏳ Mejor Tiempo en Combate : [Record]</h3>
             </div>
         </div>
@@ -69,6 +70,11 @@ export default {
             handleDragLeave,
             handleDrop
         };
+    },
+    methods: {
+        goToEdit() {
+            this.$router.push({ name: 'edit' });
+        }
     }
 };
 </script>
@@ -158,10 +164,10 @@ html {
 }
 
 .eliminar {
-    background-color: brown;
+    background-color: rgb(122, 25, 25);
 }
 
 .eliminar:hover {
-    background-color: rgb(234, 87, 87);
+    background-color: rgb(224, 49, 49);
 }
 </style>

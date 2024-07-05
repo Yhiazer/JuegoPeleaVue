@@ -1,163 +1,194 @@
 <template>
-    <NavBar />
-    <div class="limiter">
-      <div class="container-login">
-        <div class="login">
-          <form class="login-form" @submit.prevent="checkEmail">
-            <span class="titulo">
-              Inicio de Sesión
-            </span>
-            <div class="container-input">
-              <input class="input" type="text" v-model="email" placeholder="Email">
-            </div>
-            <div class="container-input">
-              <input class="input" type="password" v-model="password" placeholder="Contraseña">
-            </div>
-            <div class="container-boton">
-              <button class="boton">
-                Iniciar Sesión
-              </button>
-            </div>
-          </form>
+  <NavBar />
+  <div class="wrapper">
+    <div class="contenedor">
+      <div class="imagen-perfil">
+        <h2>Imagen de Perfil</h2>
+        <div class="drop-zone" :class="{ 'drop-zone-dragging': dragging }" @dragover.prevent="handleDragOver"
+          @dragenter="handleDragEnter" @dragleave="handleDragLeave" @drop="handleDrop">
+          <div v-if="!image" :class="{ 'placeholder': !dragging, 'placeholder-highlight': dragging}">
+            {{ dragging ? 'Suelta Aquí' : 'Arrastra y suelta la imagen de perfil' }}
+          </div>
+          <img v-else :src="image" class="uploaded-image" />
         </div>
       </div>
+      <div class="registro">
+        <h3>👤 Usuario :</h3>
+        <input type="text" v-model="usuario" placeholder="Ingrese su usuario">
+        <h3>📧 Correo :</h3>
+        <input type="email" v-model="correo" placeholder="Ingrese su correo electrónico">
+        <h3>🔒 Contraseña :</h3>
+        <input type="password" v-model="contrasena" placeholder="Ingrese su contraseña">
+      </div>
     </div>
-  </template>
-  
-  <script>
-  import NavBar from '@/client/components/NavBar.vue'
-  import { useUserDataStore } from '@/client/stores/username';
-  
-  export default {
-    components: {
-      NavBar
-    },
-    data() {
-      return {
-        email: '',
-        password: ''
+  </div>
+
+  <div class="botones" style="padding-top: 50px;">
+    <button class="volver" @click="goToPrincipal">Volver Atrás</button>
+    <button class="crear" @click="goToLogin">Registrar</button>
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue';
+import NavBar from '@/client/components/NavBar.vue';
+
+export default {
+  components: {
+    NavBar
+  },
+  setup() {
+    const image = ref(null);
+    const dragging = ref(false);
+    const usuario = ref('');
+    const correo = ref('');
+    const contrasena = ref('');
+
+    const handleDragOver = (event) => {
+      event.preventDefault();
+    };
+
+    const handleDragEnter = () => {
+      dragging.value = true;
+    };
+
+    const handleDragLeave = () => {
+      dragging.value = false;
+    };
+
+    const handleDrop = (event) => {
+      event.preventDefault();
+      const file = event.dataTransfer.files[0]
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          image.value = e.target.result;
+        };
+        reader.readAsDataURL(file);
       }
+    };
+
+    return {
+      image,
+      dragging,
+      usuario,
+      correo,
+      contrasena,
+      handleDragOver,
+      handleDragEnter,
+      handleDragLeave,
+      handleDrop
+    };
+  },
+  methods: {
+    goToPrincipal() {
+      this.$router.push({ name: 'principal' });
     },
-    methods: {
-      async checkEmail() {
-        try {
-          const response = await fetch('/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email: this.email, password: this.password })
-          });
-  
-          const data = await response.json();
-  
-          if (response.ok) {
-            useUserDataStore().setUsername(data.username);
-            this.$router.push({ name: 'seleccion' });
-          } else {
-            alert(data.message);
-          }
-        } catch (error) {
-          console.error('Error during login:', error);
-          alert('Ocurrió un error. Inténtalo de nuevo.');
-        }
-      }
+    goToLogin() {
+      this.$router.push({ name: 'login' });
     }
   }
-  </script>
-  
-  <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  input {
-    outline: none;
-    border: none;
-  }
-  
-  button {
-    border: none;
-  }
-  
-  button:hover {
-    cursor: pointer;
-  }
-  
-  .container-login {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 15px;
-  }
-  
-  .login {
-    width: 50%;
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-  
-  .login-form {
-    width: 100%;
-  }
-  
-  .titulo {
-    margin: 30px;
-    display: block;
-    font-size: 30px;
-    color: #555;
-    line-height: 1.2;
-    text-align: center;
-  }
-  
-  .container-input {
-    padding: 10px;
-    width: 100%;
-    position: relative;
-    background-color: #fff;
-  }
-  
-  .input {
-    display: block;
-    border: 1px solid #d6d6d6;
-    width: 100%;
-    background: 0 0;
-    font-size: 15px;
-    color: #666;
-    line-height: 1.2;
-  }
-  
-  input.input {
-    height: 68px;
-    padding: 0 25px;
-  }
-  
-  .container-boton {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .boton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 20px;
-    width: 100%;
-    height: 60px;
-    background-color: rgb(61, 176, 88);
-    font-size: 14px;
-    color: #fff;
-    line-height: 1.2;
-    transition: all 0.4s;
-  }
-  
-  .boton:hover {
-    background-color: rgb(103, 206, 127);
-  }
-  </style>
+};
+</script>
+
+<style>
+body,
+html {
+  height: 100%;
+  margin: 0;
+}
+
+.wrapper {
+  padding-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.contenedor {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgb(127, 131, 135);
+  padding: 20px;
+  width: 1300px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.imagen-perfil {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.drop-zone {
+  width: 300px;
+  height: 300px;
+  border: 2px dashed #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.drop-zone-dragging {
+  border-color: black;
+}
+
+.uploaded-image {
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.registro {
+  background-color: rgb(81, 81, 81);
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.registro h3 {
+  margin: 10px 0;
+}
+
+.registro input {
+  padding: 8px;
+  width: 80%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.botones {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.volver {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.volver {
+  background-color: rgb(70, 146, 217);
+}
+
+.volver:hover {
+  background-color: rgb(127, 187, 244);
+}
+</style>
