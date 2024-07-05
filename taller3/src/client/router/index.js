@@ -1,4 +1,3 @@
-// router.js
 import { createRouter, createWebHistory } from 'vue-router';
 import { useGameDataStore } from '@/client/stores/imagenes'; // Importa el store de Pinia
 
@@ -11,6 +10,11 @@ import Wiki from '@/client/views/WikiView.vue';
 import Perfil from '@/client/views/PerfilView.vue';
 import Register from '@/client/views/RegisterView.vue';
 import Edit from '@/client/views/EditView.vue';
+
+// Función para verificar si el usuario está autenticado
+function isAuthenticated() {
+  return !!localStorage.getItem('username');
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,11 +38,8 @@ const router = createRouter({
       path: '/game',
       name: 'game',
       component: Game,
-      // Opcional: puedes usar un guard de navegación para cargar datos desde el store de Pinia antes de entrar en la ruta
       beforeEnter: (to, from, next) => {
         const selectedImages = useGameDataStore().selectedImages;
-        // Por ejemplo, puedes realizar una carga de datos desde el store de Pinia antes de entrar en la ruta
-        // useGameDataStore().fetchData();
         next();
       }
     },
@@ -69,6 +70,19 @@ const router = createRouter({
       component: Edit
     },
   ]
+});
+
+// Guard global para proteger las rutas
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/login', '/register', '/'];
+  const authRequired = !publicPages.includes(to.path);
+  const loggedIn = isAuthenticated();
+
+  if (authRequired && !loggedIn) {
+    next('/login');
+  } else {
+    next();
+  }
 });
 
 export default router;
