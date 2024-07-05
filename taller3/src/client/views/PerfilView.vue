@@ -16,7 +16,7 @@
             <div class="info">
                 <h3>👤 Usuario : {{ username }} <span @click="goToEdit" style="cursor: pointer;">📝</span></h3>
                 <h3>📧 Correo : {{ correo }} <span @click="goToEdit" style="cursor: pointer;">📝</span></h3>
-                <h3>⏳ Mejor Tiempo en Combate : {{ record }}</h3>
+                <h3>⏳ Mejor Tiempo en Combate : {{ record }} segundos</h3>
             </div>
         </div>
     </div>
@@ -87,6 +87,14 @@ export default {
                     }
                 });
 
+                const resp = await axios.get('http://localhost:3000/api/record', {
+                    params: {
+                        username: username
+                    }
+                });
+
+                this.record = resp.data.record[0].tiempo_minimo
+
                 console.log('Respuesta del servidor:', response.data);
 
                 if (response.status === 200) {
@@ -123,6 +131,7 @@ export default {
                 });
                 console.log('Respuesta del servidor:', response.data);
                 localStorage.removeItem('username');
+                this.$router.push({ name: 'principal' });
             } catch (error) {
                 console.error('Error al obtener la información del usuario:', error);
                 if (error.response) {

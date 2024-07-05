@@ -139,12 +139,12 @@ app.delete('/api/users/delete', async (req, res) => {
 
 
 app.put('/api/users/edit', async (req, res) => {
-  const { username, correo, user } = req.body;
+  const { username, correo, user, imagen } = req.body;
 
   console.log(user);
 
   // Validar que se proporcionen los campos necesarios
-  if (!username || !correo) {
+  if (!username || !correo || !imagen) {
     return res.status(400).json({ error: 'Todos los campos son requeridos' });
   }
 
@@ -152,8 +152,8 @@ app.put('/api/users/edit', async (req, res) => {
     // Actualizar el usuario en la base de datos
     console.log(user);
     const result = await pool.query(
-      'UPDATE usuario SET username = $1, correo = $2 WHERE username = $3 RETURNING *',
-      [username, correo, user]
+      'UPDATE usuario SET username = $1, correo = $2, imagen = $4 WHERE username = $3 RETURNING *',
+      [username, correo, user, imagen]
     );
     if (result.rowCount === 0) {
       return res.status(404).json({ error: 'Usuario no encontrado' });
@@ -166,6 +166,7 @@ app.put('/api/users/edit', async (req, res) => {
     res.status(500).json({ error: 'Error al actualizar el usuario' });
   }
 });
+
 
 
 app.get('/api/record', async (req, res) => {
