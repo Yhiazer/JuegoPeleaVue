@@ -74,7 +74,7 @@ const router = createRouter({
 
 // Guard global para proteger las rutas
 router.beforeEach((to, from, next) => {
-  const publicPages = ['/login', '/register', '/'];
+  const publicPages = ['/login', '/register', '/', '/wiki'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = isAuthenticated();
 

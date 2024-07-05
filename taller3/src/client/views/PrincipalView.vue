@@ -25,7 +25,7 @@ export default {
         <nav>
           <a href="#historia">Historia</a>
           <a href="#tutorial">Tutorial</a>
-          <a href="#final">Jugar</a>
+          <a @click="goToLogin" style="cursor: pointer;">Jugar</a>
           <a @click="goToPerfil" style="cursor: pointer;">Perfil</a>
         </nav>
       </div>
