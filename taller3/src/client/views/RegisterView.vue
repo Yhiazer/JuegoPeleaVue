@@ -32,6 +32,7 @@
 <script>
 import { ref } from 'vue';
 import NavBar from '@/client/components/NavBar.vue';
+import axios from 'axios';
 
 export default {
   components: {
@@ -85,7 +86,54 @@ export default {
       this.$router.push({ name: 'principal' });
     },
     goToLogin() {
+      this.registrar();
       this.$router.push({ name: 'login' });
+    },
+    async registrar(){
+      try {
+        let bytea = null;
+        console.log(this.image);
+
+        if (this.image) {
+          bytea = await this.convertUrlToBytea(this.image);
+        }
+        const response = await axios.post('http://localhost:3000/api/register', {
+          username: this.usuario,
+          correo: this.correo,
+          password: this.contrasena,
+          imagen: bytea
+        });
+        
+        console.log('Respuesta del servidor:', response.data);
+      } catch (error) {
+        console.error('Error al registrar:', error);
+        // Manejar el error, como mostrar un mensaje de error al usuario
+      }
+    },
+    convertUrlToBytea(url) {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        console.log(url);
+        img.crossOrigin = 'Anonymous';
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
+          canvas.toBlob(blob => {
+            const reader = new FileReader();
+            reader.onload = () => {
+              const arrayBuffer = reader.result;
+              resolve(Array.from(new Uint8Array(arrayBuffer))); // Convertir a arreglo de bytes
+            };
+            reader.onerror = error => reject(error);
+            reader.readAsArrayBuffer(blob);
+          }, 'image/jpeg');
+        };
+        img.onerror = error => reject(error);
+        img.src = url;
+      });
     }
   }
 };

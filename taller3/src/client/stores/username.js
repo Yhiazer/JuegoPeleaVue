@@ -9,5 +9,8 @@ export const useUserDataStore = defineStore({
     setUsername(username) {
       this.username = username;
     },
+    getUsername(){
+      return this.username;
+    }
   },
 });

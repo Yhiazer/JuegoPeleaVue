@@ -14,7 +14,6 @@
 import Stadium from '@/client/components/Stadium.vue'
 import Stats from '@/client/components/Stats.vue'
 import { useGameDataStore } from '@/client/stores/imagenes';
-import { useUserDataStore } from '@/client/stores/username';
 
 export default {
     components: {
@@ -26,7 +25,7 @@ export default {
             return useGameDataStore().selectedImages;
         },
         username(){
-            return useUserDataStore().username;
+            return localStorage.getItem('username');
         }
     },
     mounted() {

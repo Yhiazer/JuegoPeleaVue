@@ -20,7 +20,8 @@
           </div>
         </form>
       </div>
-      <p style="padding-top: 30px; font-size: medium;">La cuenta es necesaria para poder ejecutar el juego, si no, puedes disfrutar de la wiki.</p>
+      <p style="padding-top: 30px; font-size: medium;">La cuenta es necesaria para poder ejecutar el juego, si no,
+        puedes disfrutar de la wiki.</p>
       <div class="botones" style="padding-top: 50px;">
         <button class="crear" @click="goToRegister">Crear Cuenta</button>
         <button class="volver" @click="goToPrincipal">Volver Atrás</button>
@@ -32,6 +33,7 @@
 <script>
 import NavBar from '@/client/components/NavBar.vue'
 import { useUserDataStore } from '@/client/stores/username';
+import axios from 'axios';
 
 export default {
   components: {
@@ -46,25 +48,28 @@ export default {
   methods: {
     async checkEmail() {
       try {
-        const response = await fetch('/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ email: this.email, password: this.password })
+        const response = await axios.post('http://localhost:3000/api/login', {
+          correo: this.email,
+          password: this.password
         });
 
-        const data = await response.json();
+        console.log('Respuesta del servidor:', response.data);
 
-        if (response.ok) {
-          useUserDataStore().setUsername(data.username);
+        if (response.status === 200) {
+          localStorage.setItem('username', response.data.username);
           this.$router.push({ name: 'seleccion' });
         } else {
-          alert(data.message);
+          alert(response.data.message);
         }
       } catch (error) {
         console.error('Error during login:', error);
-        alert('Ocurrió un error. Inténtalo de nuevo.');
+        if (error.response) {
+          // El servidor respondió con un código de estado que no está en el rango de 2xx
+          alert(error.response.data.message);
+        } else {
+          // Error en la solicitud o no se recibió respuesta
+          alert('Ocurrió un error. Inténtalo de nuevo.');
+        }
       }
     },
     goToPrincipal() {

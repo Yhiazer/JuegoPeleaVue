@@ -2,8 +2,8 @@
     <div>
         <NavBar />
         <div class="gameover-container">
-            <p>El ganador es: {{ $route.query.winner }}</p>
-            <p>Tiempo de combate: {{ $route.query.combatTime }} segundos</p>
+            <p>El ganador es: {{ winner }}</p>
+            <p>Tiempo de combate: {{ combatTime }} segundos</p>
         </div>
         <div class="container" style="padding: 25px;">
             Mejor record
@@ -18,7 +18,8 @@
 </template>
 
 <script>
-import NavBar from '@/client/components/NavBar.vue'
+import NavBar from '@/client/components/NavBar.vue';
+import axios from 'axios';
 
 export default {
     components: {
@@ -33,31 +34,39 @@ export default {
         };
     },
     mounted() {
-        // Hacer la solicitud GET al servidor para obtener el mejor récord
-        fetch('/menorTiempoDeCombate')
-            .then(response => response.json())
-            .then(data => {
-                // Actualizar los datos del mejor récord en el componente Vue
-                this.mejorRecord.jugador = data.jugadorMenorTiempo;
-                this.mejorRecord.tiempo = data.menorTiempo;
-            })
-            .catch(error => {
-                console.error('Error al obtener el mejor récord:', error);
-            });
+        this.menorRecord();
     },
     methods: {
+        async menorRecord() {
+            try {
+                const username = localStorage.getItem('username');
+                const response = await axios.post('http://localhost:3000/api/register-record', {
+                    username: this.winner,
+                    user: username,
+                    tiempo_minimo: this.combatTime
+                });
+
+                console.log('Respuesta del servidor:', response.data);
+
+                const resp = await axios.get('http://localhost:3000/api/record', {
+                    params: {
+                        username: username
+                    }
+                });
+
+                console.log(resp.data.record[0]);
+                this.mejorRecord = {
+                    jugador: resp.data.record[0].username,
+                    tiempo: resp.data.record[0].tiempo_minimo
+                }
+
+            } catch (error) {
+                console.error('Error al registrar:', error);
+                // Manejar el error, como mostrar un mensaje de error al usuario
+            }
+        },
         goToSeleccion() {
             this.$router.push({ name: 'seleccion' });
-        }
-    },
-    props: {
-        winner: {
-            type: String,
-            required: true
-        },
-        combatTime: {
-            type: Number,
-            required: true
         }
     },
     computed: {

@@ -225,21 +225,9 @@ export default {
             const player2Health = this.$refs.play2.health;
             if (player1Health <= 0 || player2Health <= 0) {
                 this.stopTimer();
-                const winner = player1Health <= 0 ? 'Jugador 2' : 'Jugador 1';
+                const username = localStorage.getItem('username');
+                const winner = player1Health <= 0 ? 'Jugador 2' : username;
                 const combatTime = this.time;
-
-                // Enviar datos al servidor
-                fetch('/guardarDatos', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ winner, combatTime })
-                }).then(response => {
-                    // Manejar la respuesta si es necesario
-                }).catch(error => {
-                    console.error('Error al enviar datos al servidor:', error);
-                });
 
                 setTimeout(() => {
                     this.$router.push({

@@ -14,69 +14,140 @@
                 <h2>Imagen de Perfil <span @click="goToEdit" style="cursor: pointer;">📝</span></h2>
             </div>
             <div class="info">
-                <h3>👤 Usuario : [Username] <span @click="goToEdit" style="cursor: pointer;">📝</span></h3>
-                <h3>📧 Correo : [Correo de Usuario] <span @click="goToEdit" style="cursor: pointer;">📝</span></h3>
-                <h3>⏳ Mejor Tiempo en Combate : [Record]</h3>
+                <h3>👤 Usuario : {{ username }} <span @click="goToEdit" style="cursor: pointer;">📝</span></h3>
+                <h3>📧 Correo : {{ correo }} <span @click="goToEdit" style="cursor: pointer;">📝</span></h3>
+                <h3>⏳ Mejor Tiempo en Combate : {{ record }}</h3>
             </div>
         </div>
     </div>
     <div class="botones" style="padding-top: 50px;">
-        <button class="cerrar">Cerrar Sesión</button>
-        <button class="eliminar">Eliminar Sesión</button>
+        <button @click="cerrar" class="cerrar">Cerrar Sesión</button>
+        <button @click="eliminar" class="eliminar">Eliminar Sesión</button>
     </div>
 </template>
 
 <script>
 import { ref } from 'vue';
 import NavBar from '@/client/components/NavBar.vue';
+import axios from 'axios';
 
 export default {
     components: {
         NavBar
     },
-    setup() {
-        const image = ref(null);
-        const dragging = ref(false);
-
-        const handleDragOver = (event) => {
+    data() {
+        return {
+            username: '',
+            correo: '',
+            record: '',
+            image: null,
+            dragging: false
+        }
+    },
+    mounted() {
+        this.getUserInfo();
+    },
+    methods: {
+        handleDragOver(event) {
             event.preventDefault();
-        };
+        },
 
-        const handleDragEnter = () => {
-            dragging.value = true;
-        };
+        handleDragEnter() {
+            this.dragging = true;
+        },
 
-        const handleDragLeave = () => {
-            dragging.value = false;
-        };
+        handleDragLeave() {
+            this.dragging = false;
+        },
 
-        const handleDrop = (event) => {
+        handleDrop(event) {
             event.preventDefault();
-            const file = event.dataTransfer.files[0]
+            this.dragging = false;
+            const file = event.dataTransfer.files[0];
             if (file && file.type.startsWith('image/')) {
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    image.value = e.target.result;
+                    this.image = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
-        };
+        },
 
-        return {
-            image,
-            dragging,
-            handleDragOver,
-            handleDragEnter,
-            handleDragLeave,
-            handleDrop
-        };
-    },
-    methods: {
         goToEdit() {
             this.$router.push({ name: 'edit' });
+        },
+
+        async getUserInfo() {
+            try {
+                const username = localStorage.getItem('username');
+                console.log(username);
+                const response = await axios.get(`http://localhost:3000/api/userinfo`, {
+                    params: {
+                        username: username
+                    }
+                });
+
+                console.log('Respuesta del servidor:', response.data);
+
+                if (response.status === 200) {
+                    const { username, correo, imagen } = response.data;
+                    this.username = username;
+                    this.correo = correo;
+                    if (imagen && imagen.data && imagen.data.length > 0) {
+                        const base64String = arrayBufferToBase64(imagen);
+                        this.image = `data:image/jpeg;base64,${base64String}`;
+                    } else {
+                        this.image = null;
+                    }
+                } else {
+                    alert(response.data.message);
+                }
+            } catch (error) {
+                console.error('Error al obtener la información del usuario:', error);
+                if (error.response) {
+                    alert(error.response.data.message);
+                } else {
+                    alert('Ocurrió un error. Inténtalo de nuevo.');
+                }
+            }
+        },
+
+        async eliminar(){
+            try {
+                const username = localStorage.getItem('username');
+                console.log(username);
+                const response = await axios.delete(`http://localhost:3000/api/users/delete`, {
+                    params: {
+                        username: username
+                    }
+                });
+                console.log('Respuesta del servidor:', response.data);
+                localStorage.removeItem('username');
+            } catch (error) {
+                console.error('Error al obtener la información del usuario:', error);
+                if (error.response) {
+                    alert(error.response.data.message);
+                } else {
+                    alert('Ocurrió un error. Inténtalo de nuevo.');
+                }
+            }
+        },
+        cerrar(){
+            localStorage.removeItem('username');
+            this.$router.push({ name: 'principal' });
         }
     }
 };
+
+function arrayBufferToBase64(buffer) {
+    let binary = '';
+    const bytes = new Uint8Array(buffer.data);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+}
 </script>
 
 <style>
